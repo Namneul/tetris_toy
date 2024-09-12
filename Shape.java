@@ -8,7 +8,7 @@ public class Shape {
         TShape, SquareShape, LShape, MirroredLShape }
 
     private Tetrominoe pieceShape;
-    private int coords[][];
+    private int coords[][];     //골라진 블럭 모양
     private int[][][] coordsTable;
 
 
