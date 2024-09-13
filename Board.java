@@ -14,8 +14,8 @@ import java.awt.event.KeyEvent;
 
 public class Board extends JPanel {
 
-    private final int BOARD_WIDTH = 10;
-    private final int BOARD_HEIGHT = 22;
+    private final int BOARD_WIDTH = 20;
+    private final int BOARD_HEIGHT = 40;
     private final int PERIOD_INTERVAL = 300;
 
     private Timer timer;
