@@ -1,7 +1,9 @@
 package com.zetcode;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
+import com.zetcode.*;
 
 /*
 Java Tetris game clone
@@ -13,7 +15,9 @@ public class Tetris extends JFrame {
 
     private JLabel statusbar;
     private JPanel InfoPanel;       //점수 및 다음 블럭 표시 등의 정보표시패널
-    private JPanel InsidePanel;
+    private JPanel StatusPanel;
+    private JPanel ScorePanel;
+    private Shape ShowPiece;
 
     public Tetris() {
 
@@ -24,15 +28,18 @@ public class Tetris extends JFrame {
 
         statusbar = new JLabel(" 0");
         InfoPanel = new JPanel(new GridLayout(3,1));
-        InsidePanel = new JPanel();
+        StatusPanel = new JPanel();
+        ScorePanel = new JPanel();
 
         add(InfoPanel, BorderLayout.EAST);
-        InfoPanel.setPreferredSize(new Dimension(120,60));
-        InfoPanel.add(new JLabel("test panel"));
-        InfoPanel.setBackground(Color.lightGray);
-        InfoPanel.add(InsidePanel);
-        InsidePanel.setBackground(Color.lightGray);
-        InfoPanel.add(statusbar);
+        InfoPanel.setPreferredSize(new Dimension(120,20));
+//        InfoPanel.;
+        InfoPanel.setBackground(Color.WHITE);
+        InfoPanel.add(ScorePanel);
+        InfoPanel.add(StatusPanel);
+        InfoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        StatusPanel.setBackground(Color.lightGray);
+        StatusPanel.add(statusbar);
 
 
         var board = new Board(this);

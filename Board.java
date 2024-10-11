@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 public class Board extends JPanel {
 
     private final int BOARD_WIDTH = 20;
@@ -26,6 +25,7 @@ public class Board extends JPanel {
     private int curY = 0;
     private JLabel statusbar;
     private Shape curPiece;
+    private Shape NextPiece;
     private Tetrominoe[] board;
 
     public Board(Tetris parent) {
@@ -58,6 +58,7 @@ public class Board extends JPanel {
     void start() {
 
         curPiece = new Shape();
+        NextPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
 
         clearBoard();
@@ -174,7 +175,8 @@ public class Board extends JPanel {
 
     private void newPiece() {
 
-        curPiece.setRandomShape();
+        curPiece = NextPiece;
+        NextPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
         curY = BOARD_HEIGHT - 1 + curPiece.minY();
 
@@ -309,6 +311,8 @@ public class Board extends JPanel {
             oneLineDown();
         }
     }
+
+
 
     class TAdapter extends KeyAdapter {
 
