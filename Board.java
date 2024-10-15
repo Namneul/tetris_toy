@@ -250,7 +250,7 @@ public class Board extends JPanel {
 
             numLinesRemoved += numFullLines;
 
-            statusbar.setText(String.valueOf(numLinesRemoved));
+            statusbar.setText(String.valueOf(numLinesRemoved)); //statusbar 지워진 줄 숫자 바꾸는 코드
             isFallingFinished = true;
             curPiece.setShape(Tetrominoe.NoShape);
         }
@@ -312,6 +312,9 @@ public class Board extends JPanel {
         }
     }
 
+    public Tetrominoe GetNextShape(){
+        return  NextPiece.getShape();
+    }
 
 
     class TAdapter extends KeyAdapter {
