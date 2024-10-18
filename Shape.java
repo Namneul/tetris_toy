@@ -8,7 +8,7 @@ public class Shape {
         TShape, SquareShape, LShape, MirroredLShape }
 
     private Tetrominoe pieceShape;
-    private int coords[][];     //골라진 블럭 모양
+    private int coords[][];
     private int[][][] coordsTable;
 
 
@@ -21,7 +21,7 @@ public class Shape {
 
         coords = new int[4][2];
 
-        coordsTable = new int[][][] {                           //테트리스 블록 모양 표.  Tetrominoe 순서대로
+        coordsTable = new int[][][] {
                 { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },
                 { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
                 { { 0, -1 },  { 0, 0 },   { 1, 0 },   { 1, 1 } },
@@ -48,10 +48,10 @@ public class Shape {
         pieceShape = shape;
     }
 
-    private void setX(int index, int x) { coords[index][0] = x; }   //주어진 index 블럭의 x좌표 변환
-    private void setY(int index, int y) { coords[index][1] = y; }   //주어진 index 블럭의 y좌표 변환
-    public int x(int index) { return coords[index][0]; }    //주어진 index 블럭의 x좌표 값 반환
-    public int y(int index) { return coords[index][1]; }    //주어진 index 블럭의 y좌표 값 반환
+    private void setX(int index, int x) { coords[index][0] = x; }
+    private void setY(int index, int y) { coords[index][1] = y; }
+    public int x(int index) { return coords[index][0]; }
+    public int y(int index) { return coords[index][1]; }
     public Tetrominoe getShape()  { return pieceShape; }
 
     public void setRandomShape() {
@@ -88,7 +88,7 @@ public class Shape {
         return m;
     }
 
-    public Shape rotateLeft() {     //시계방향 회전
+    public Shape rotateLeft() {
 
         if (pieceShape == Tetrominoe.SquareShape) {
 
@@ -107,7 +107,7 @@ public class Shape {
         return result;
     }
 
-    public Shape rotateRight() {        //시계반대방향 회전
+    public Shape rotateRight() {
 
         if (pieceShape == Tetrominoe.SquareShape) {
 

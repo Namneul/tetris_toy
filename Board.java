@@ -11,10 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 public class Board extends JPanel {
 
-    private final int BOARD_WIDTH = 20;
-    private final int BOARD_HEIGHT = 40;
+    private final int BOARD_WIDTH = 15;
+    private final int BOARD_HEIGHT = 30;
     private final int PERIOD_INTERVAL = 300;
 
     private Timer timer;
@@ -25,8 +26,8 @@ public class Board extends JPanel {
     private int curY = 0;
     private JLabel statusbar;
     private Shape curPiece;
-    private Shape NextPiece;
     private Tetrominoe[] board;
+
 
     public Board(Tetris parent) {
 
@@ -55,10 +56,9 @@ public class Board extends JPanel {
         return board[(y * BOARD_WIDTH) + x];
     }
 
-    void start() {
+    void    start() {
 
         curPiece = new Shape();
-        NextPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
 
         clearBoard();
@@ -175,8 +175,7 @@ public class Board extends JPanel {
 
     private void newPiece() {
 
-        curPiece = NextPiece;
-        NextPiece.setRandomShape();
+        curPiece.setRandomShape();
         curX = BOARD_WIDTH / 2 + 1;
         curY = BOARD_HEIGHT - 1 + curPiece.minY();
 
@@ -250,7 +249,7 @@ public class Board extends JPanel {
 
             numLinesRemoved += numFullLines;
 
-            statusbar.setText(String.valueOf(numLinesRemoved)); //statusbar 지워진 줄 숫자 바꾸는 코드
+            statusbar.setText(String.valueOf(numLinesRemoved));
             isFallingFinished = true;
             curPiece.setShape(Tetrominoe.NoShape);
         }
@@ -306,16 +305,23 @@ public class Board extends JPanel {
 
             isFallingFinished = false;
             newPiece();
+
         } else {
 
             oneLineDown();
         }
     }
 
-    public Tetrominoe GetNextShape(){
-        return  NextPiece.getShape();
+    public void RestartGame(){
+        clearBoard();
+        isPaused = !isPaused;
+        if (isPaused) {
+            statusbar.setText("Press P to restart");
+        } else {
+            statusbar.setText(String.valueOf(numLinesRemoved));
+        }
+        repaint();
     }
-
 
     class TAdapter extends KeyAdapter {
 
@@ -339,6 +345,7 @@ public class Board extends JPanel {
                 case KeyEvent.VK_UP -> tryMove(curPiece.rotateLeft(), curX, curY);
                 case KeyEvent.VK_SPACE -> dropDown();
                 case KeyEvent.VK_D -> oneLineDown();
+                case KeyEvent.VK_F5 -> RestartGame();
             }
         }
     }
