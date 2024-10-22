@@ -64,7 +64,7 @@ public class Board extends JPanel {
         clearBoard();
         newPiece();
 
-        timer = new Timer(PERIOD_INTERVAL, new GameCycle());
+        timer = new Timer(PERIOD_INTERVAL, new GameCycle()); //PERIOD_INTERVAL(단위 밀리세컨드) 주기로 GameCycle 실행.
         timer.start();
     }
 
@@ -313,13 +313,11 @@ public class Board extends JPanel {
     }
 
     public void RestartGame(){
+        timer.start();
         clearBoard();
-        isPaused = !isPaused;
-        if (isPaused) {
-            statusbar.setText("Press P to restart");
-        } else {
-            statusbar.setText(String.valueOf(numLinesRemoved));
-        }
+        newPiece();
+        isPaused = true;
+        statusbar.setText("Press P to restart");
         repaint();
     }
 
@@ -328,12 +326,15 @@ public class Board extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
 
+            int keycode = e.getKeyCode();
+
             if (curPiece.getShape() == Tetrominoe.NoShape) {
+               if (keycode == KeyEvent.VK_F5){
+                   RestartGame();
+               }
 
                 return;
             }
-
-            int keycode = e.getKeyCode();
 
             // Java 12 switch expressions
             switch (keycode) {
