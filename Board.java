@@ -26,6 +26,7 @@ public class Board extends JPanel {
     private int curY = 0;
     private JLabel statusbar;
     private Shape curPiece;
+    private Shape savedPiece;
     private Tetrominoe[] board;
 
 
@@ -59,6 +60,7 @@ public class Board extends JPanel {
     void    start() {
 
         curPiece = new Shape();
+        savedPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
 
         clearBoard();
@@ -312,13 +314,33 @@ public class Board extends JPanel {
         }
     }
 
-    public void RestartGame(){
+    private void RestartGame(){
         timer.start();
         clearBoard();
         newPiece();
         isPaused = true;
         statusbar.setText("Press P to restart");
         repaint();
+    }
+
+    private void SavePiece(){
+//  CurPiece 빈 칸에 저장 -> 다음 Piece
+        Tetrominoe tmp;
+        if (savedPiece.getShape() == Tetrominoe.NoShape){
+            savedPiece.setShape(curPiece.getShape());
+            newPiece();
+    }
+    else {
+        tmp = curPiece.getShape();
+        curPiece.setShape(savedPiece.getShape());
+        savedPiece.setShape(tmp);
+
+
+
+        }
+
+//  만약 이미 저장되어 있는 Piece가 있다면: CurPiece와 교체.
+
     }
 
     class TAdapter extends KeyAdapter {
@@ -347,6 +369,7 @@ public class Board extends JPanel {
                 case KeyEvent.VK_SPACE -> dropDown();
                 case KeyEvent.VK_D -> oneLineDown();
                 case KeyEvent.VK_F5 -> RestartGame();
+                case KeyEvent.VK_S -> SavePiece();
             }
         }
     }
